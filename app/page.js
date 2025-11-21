@@ -1,37 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 /* -------------------------------------------------------
-   MAGIC CURSOR — UPDATED WITH FLYHIGH GRADIENT COLORS
-   ------------------------------------------------------- */
-function MagicCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-
-  useEffect(() => {
-    const move = (e) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
-
-  return (
-    <motion.div
-      className="
-        pointer-events-none fixed top-0 left-0 z-[999]
-        w-5 h-5 rounded-full 
-        bg-gradient-to-r from-[#77a7ff] via-[#f5c18b] to-[#b9b9b9]
-        shadow-[0_0_25px_10px_rgba(255,200,140,0.35)]
-      "
-      animate={{ x: pos.x - 10, y: pos.y - 10 }}
-      transition={{ type: 'spring', mass: 0.15 }}
-    />
-  );
-}
-
-/* -------------------------------------------------------
    AURORA BACKGROUND
-   ------------------------------------------------------- */
+-------------------------------------------------------- */
 function AuroraBackground() {
   return (
     <div className="fixed inset-0 -z-50 overflow-hidden">
@@ -59,8 +33,8 @@ function AuroraBackground() {
 }
 
 /* -------------------------------------------------------
-   FULL PAGE
-   ------------------------------------------------------- */
+   FULL PAGE WITHOUT MAGIC CURSOR
+-------------------------------------------------------- */
 export default function Home() {
   const VISA_TYPES = ["Student Visa", "Work Visa", "Tourist Visa"];
   const COUNTRIES = [
@@ -78,8 +52,7 @@ export default function Home() {
   const [phone, setPhone] = useState("");
 
   const handleWhatsAppSubmit = () => {
-    if (!name || !phone)
-      return alert("Please enter name & phone number.");
+    if (!name || !phone) return alert("Please enter name & phone number.");
 
     const msg = `Hello PR Consultants,
 I want a free consultation.
@@ -98,7 +71,6 @@ Country: ${country}`;
   return (
     <main className="text-white relative overflow-hidden">
       <AuroraBackground />
-      <MagicCursor />
 
       {/* HERO SECTION */}
       <section className="pt-28 pb-20 text-center">
@@ -268,6 +240,44 @@ Country: ${country}`;
         </motion.div>
       </section>
 
+      {/* IELTS */}
+      <section className="max-w-6xl mx-auto px-4 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <motion.img
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          src="/ielts.jpg"
+          className="rounded-2xl border border-white/20 shadow-xl"
+        />
+
+        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-300 to-orange-300 text-transparent bg-clip-text">
+            What is IELTS?
+          </h2>
+          <p className="text-gray-300 mt-3">
+            IELTS evaluates your English skills in Listening, Reading, Writing, and Speaking.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* GERMANY */}
+      <section className="max-w-6xl mx-auto px-4 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <motion.img
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          src="/grm.jpg"
+          className="rounded-2xl border border-white/20 shadow-xl"
+        />
+
+        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-300 to-orange-300 text-transparent bg-clip-text">
+            What is the German Language Exam?
+          </h2>
+          <p className="text-gray-300 mt-3">
+            The German Language Exam evaluates your ability to speak, read, write, and understand German.
+          </p>
+        </motion.div>
+      </section>
+
       {/* SERVICES */}
       <section className="py-20 text-center">
         <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-orange-300 to-blue-400 text-transparent bg-clip-text">
@@ -275,7 +285,8 @@ Country: ${country}`;
         </h2>
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 max-w-7xl mx-auto">
-          {[{ icon: "🎓", title: "Study Abroad" },
+          {[
+            { icon: "🎓", title: "Study Abroad" },
             { icon: "💼", title: "Work Permits" },
             { icon: "🛂", title: "Permanent Residency" },
             { icon: "🌍", title: "Tourist Visa" },
@@ -319,7 +330,8 @@ Country: ${country}`;
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-          {[{ value: "10+", label: "Years of Experience" },
+          {[
+            { value: "10+", label: "Years of Experience" },
             { value: "1200+", label: "Successful Approvals" },
             { value: "4.9★", label: "Client Rating" },
             { value: "15+", label: "International Awards" },
